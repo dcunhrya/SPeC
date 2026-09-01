@@ -16,7 +16,7 @@ export const site = {
   name: 'SPeC',
   fullName: 'The Stanford Biomedical Perception Challenge',
   year: 2026,
-  baseUrl: 'https://spec-challenge.pages.dev',
+  baseUrl: 'https://spec-challenge.rdcunha.workers.dev',
   contactEmail: 'rdcunha@stanford.edu',
   registerUrl: '/register',
   pdfUrl: null as string | null,

@@ -4,7 +4,7 @@ Public site for **SPeC**, a research competition organized by [Stanford MARVL](h
 
 The previous GitHub Pages URL (`https://dcunhrya.github.io/SPeC/`) remains up until Cloudflare is verified. After that cutover, those paths redirect here.
 
-Canonical host: **https://spec-challenge.pages.dev** (set once in `src/content/site.ts` as `site.baseUrl`).
+Canonical host: **https://spec-challenge.rdcunha.workers.dev** (set once in `src/content/site.ts` as `site.baseUrl`). A custom domain can be attached later in the Cloudflare dashboard.
 
 ## Local development
 
