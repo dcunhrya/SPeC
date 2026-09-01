@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../content/site';
+---
+
+<Base
+  title={`Page not found — ${site.name}`}
+  description="This page does not exist on the Stanford Biomedical Perception Challenge site."
+>
+  <main id="main" class="page-main">
+    <div class="container">
+      <h1 class="page-title">Page not found</h1>
+      <p class="lead">That URL is not part of this site.</p>
+      <p>
+        <a class="btn btn-primary" href="/">Back to SPeC</a>
+      </p>
+    </div>
+  </main>
+</Base>

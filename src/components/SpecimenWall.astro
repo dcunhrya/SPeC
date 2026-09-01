@@ -1,0 +1,320 @@
+---
+import { site } from '../content/site';
+
+const { predicted, truth } = site.liveExample;
+const tiles = site.heroTiles;
+const liveIndex = 8;
+const mobileKeep = new Set([0, 1, 2, 3, 4, liveIndex]);
+
+let deadlineLabel: string | null = null;
+if (site.registrationDeadline) {
+  const end = new Date(`${site.registrationDeadline}T23:59:59`);
+  const days = Math.ceil((end.getTime() - Date.now()) / 86400000);
+  if (days >= 0) deadlineLabel = `Registration closes in ${days} day${days === 1 ? '' : 's'}`;
+}
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <h1 id="hero-title">The Stanford Biomedical Perception Challenge</h1>
+      <p class="hero-lead">
+        Frontier multimodal models often reach the right answer while failing to identify the
+        modality, scale, or anatomy in front of them. SPeC measures and closes that perception gap.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={site.registerUrl}>Register a team</a>
+        <a class="btn btn-secondary" href="#tracks">Read the tracks</a>
+      </div>
+    </div>
+
+    <div class="hero-wall">
+      <div class="wall-grid" data-wall>
+        {
+          tiles.map((src, i) => {
+            const isLive = i === liveIndex;
+            return (
+              <div
+                class:list={['wall-cell', mobileKeep.has(i) && 'is-mobile', isLive && 'is-live']}
+                data-tile
+                data-live={isLive ? '' : undefined}
+              >
+                <img
+                  src={isLive ? site.liveTile : src}
+                  alt={
+                    isLive
+                      ? 'Abstract cell-like greyscale field used as a stand-in for a biomedical micrograph. Replace with licensed imagery.'
+                      : ''
+                  }
+                  width="200"
+                  height="200"
+                  aria-hidden={isLive ? undefined : 'true'}
+                />
+              </div>
+            );
+          })
+        }
+        <div class="meta-card" data-card>
+          <p class="meta-kicker">A frontier model answered:</p>
+          <p>
+            <span class="meta-key">modality:</span>
+            <span class="meta-val is-wrong" data-type={predicted.modality}>{predicted.modality}</span>
+          </p>
+          <p>
+            <span class="meta-key">domain:</span>
+            <span class="meta-val is-wrong" data-type={predicted.domain}>{predicted.domain}</span>
+          </p>
+          <div class="meta-gt" data-gt>
+            <p class="meta-kicker">Ground truth:</p>
+            <p>
+              <span class="meta-key">modality:</span>
+              <span class="meta-val is-right">{truth.modality}</span>
+            </p>
+            <p>
+              <span class="meta-key">domain:</span>
+              <span class="meta-val is-right">{truth.domain}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stat-strip">
+      <p>
+        <span class="data">3</span> <span>tracks</span>
+        <span class="stat-gap"></span>
+        <span class="data">1</span> <span>shared benchmark (MMBU)</span>
+        <span class="stat-gap"></span>
+        <span class="data">4</span> <span>task types</span>
+        {
+          deadlineLabel && (
+            <>
+              <span class="stat-gap"></span>
+              <span>{deadlineLabel}</span>
+            </>
+          )
+        }
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--graphite);
+    color: #fff;
+    min-height: calc(100svh - var(--header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem 0 2rem;
+    overflow: hidden;
+  }
+
+  .hero :focus-visible {
+    outline-color: #fff;
+  }
+
+  .hero-vignette {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, transparent 20%, rgb(0 0 0 / 0.45) 100%);
+  }
+
+  .hero-grid {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .hero-copy {
+      grid-column: 1 / 7;
+    }
+
+    .hero-wall {
+      grid-column: 7 / 13;
+      width: 32rem;
+      justify-self: start;
+      margin-right: calc((100vw - var(--container)) / -2);
+    }
+  }
+
+  h1 {
+    margin: 0 0 1.1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5.5vw, 4.25rem);
+    font-weight: 600;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  .hero-lead {
+    font-size: 1.2rem;
+    line-height: 1.55;
+    max-width: 42ch;
+    color: rgb(255 255 255 / 0.88);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero .btn-secondary {
+    color: #fff;
+    border-color: rgb(255 255 255 / 0.7);
+  }
+
+  .wall-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    position: relative;
+    width: min(32rem, 100%);
+  }
+
+  .wall-cell img {
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .wall-cell {
+    opacity: 0.55;
+    filter: saturate(0.65);
+  }
+
+  .wall-cell.is-live {
+    opacity: 1;
+    filter: none;
+    border: 2px solid var(--cardinal);
+    border-radius: calc(var(--radius-lg) + 2px);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .wall-cell.is-live img {
+    border-radius: 0;
+  }
+
+  .wall-cell.is-pending {
+    opacity: 0;
+  }
+
+  .wall-cell.is-live.is-dim {
+    opacity: 0.55;
+  }
+
+  .wall-cell.is-missing {
+    background: var(--slide);
+    min-height: 4rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .wall-cell.is-missing img {
+    display: none;
+  }
+
+  .meta-card {
+    position: absolute;
+    left: calc(25% + 12px);
+    bottom: 8%;
+    z-index: 2;
+    width: min(16.5rem, 72%);
+    background: rgb(23 21 20 / 0.92);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem 1rem;
+    font-family: var(--font-data);
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .meta-card p {
+    margin: 0;
+  }
+
+  .meta-kicker {
+    color: rgb(255 255 255 / 0.7);
+    margin-bottom: 0.2rem !important;
+  }
+
+  .meta-gt {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+  }
+
+  .meta-key {
+    display: inline-block;
+    min-width: 6.4em;
+    color: rgb(255 255 255 / 0.65);
+  }
+
+  .meta-val.is-wrong {
+    color: #e8a0a0;
+  }
+
+  .meta-val.is-right {
+    color: #8fd0c8;
+  }
+
+  .stat-strip {
+    position: relative;
+    margin-top: 2.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+  }
+
+  .stat-strip p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.2rem;
+    margin: 0;
+    color: rgb(255 255 255 / 0.86);
+  }
+
+  .stat-strip .data {
+    margin-right: 0.3rem;
+  }
+
+  .stat-gap {
+    width: 1.75rem;
+  }
+
+  @media (max-width: 899px) {
+    .wall-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .wall-cell:not(.is-mobile) {
+      display: none;
+    }
+
+    .meta-card {
+      position: relative;
+      left: 0;
+      bottom: 0;
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-top: 0.2rem;
+    }
+  }
+</style>

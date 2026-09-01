@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../content/site';
+
+const mailto = `mailto:${site.contactEmail}`;
+---
+
+<Base
+  current="register"
+  title={`Register a team — ${site.name}`}
+  description="Team registration for the Stanford Biomedical Perception Challenge is not open yet."
+>
+  <main id="main" class="page-main">
+    <div class="container">
+      <h1 class="page-title">Register a team</h1>
+      <p class="lead">Registration opens soon.</p>
+      <p class="prose">
+        Teams must apply and be accepted before participating. When registration opens, this page
+        will collect team applications. Until then, questions go to
+        <a href={mailto}>{site.contactEmail}</a>.
+      </p>
+    </div>
+  </main>
+</Base>

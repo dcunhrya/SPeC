@@ -4,3 +4,6 @@
 .env
 .env.*
 SPeC_MMBU.pdf
+node_modules/
+dist/
+.astro/

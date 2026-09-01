@@ -1,0 +1,5 @@
+# Phase 2 secrets (auth, email, Turnstile). Unused while the site is static.
+# Copy to .dev.vars — never commit the copy.
+#
+# RESEND_API_KEY=
+# TURNSTILE_SECRET_KEY=

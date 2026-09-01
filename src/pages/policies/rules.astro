@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+import Math from '../../components/Math.astro';
+import Disclosure from '../../components/Disclosure.astro';
+import { site } from '../../content/site';
+import { rules, rulesMeta } from '../../content/rules';
+import { scoring } from '../../content/scoring';
+import { faq } from '../../content/faq';
+---
+
+<Base
+  current="rules"
+  title={`Rules — ${site.name}`}
+  description="Official numbered rules, scoring, and FAQ for the Stanford Biomedical Perception Challenge."
+>
+  <main id="main" class="page-main">
+    <div class="container with-toc">
+      <nav class="toc" aria-label="On this page">
+        <ol>
+          <li><a href="#rules">Rules</a></li>
+          <li><a href="#scoring">Scoring</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+
+      <div>
+        <header>
+          <h1 class="page-title">Rules</h1>
+          <p class="meta-line">{rulesMeta.version}, last amended {rulesMeta.lastAmended}</p>
+          <p class="prose">{rulesMeta.intro}</p>
+        </header>
+
+        <div id="rules">
+          {
+            rules.map((rule) => (
+              <article
+                class:list={['rule', rule.callout && 'rule-callout']}
+                id={`rule-${rule.n}`}
+              >
+                <p class="rule-n">Rule {rule.n}</p>
+                <h2>{rule.title}</h2>
+                <p>{rule.text}</p>
+              </article>
+            ))
+          }
+          <p class="prose">{rulesMeta.closing}</p>
+        </div>
+
+        <section id="scoring" aria-labelledby="scoring-title">
+          <h2 id="scoring-title">Scoring</h2>
+          {scoring.why.map((p) => <p class="prose">{p}</p>)}
+          <ol>
+            {
+              scoring.settings.map((item) => (
+                <li>
+                  <strong>{item.title}.</strong> {item.text}
+                </li>
+              ))
+            }
+          </ol>
+
+          <h3>LLM judge</h3>
+          <p class="prose">{scoring.judge}</p>
+
+          <h3>Task score (T)</h3>
+          <p class="prose">{scoring.taskScore.prose}</p>
+          <Math formula={scoring.taskScore.formula} display />
+          <p class="prose">{scoring.taskScore.detection}</p>
+
+          <h3>Biomedical context score (C)</h3>
+          <p class="prose">{scoring.contextScore.prose}</p>
+          <p class="prose">
+            Let m_ik in [0, 1] denote the judge-assigned correctness of metadata field k for example
+            i, and
+          </p>
+          <Math formula={scoring.contextScore.z} display />
+          <p class="prose">The context score for an individual example is</p>
+          <Math formula={scoring.contextScore.ci} display />
+          <p class="prose">The overall Biomedical Context Score is</p>
+          <Math formula={scoring.contextScore.c} display />
+
+          <h3>Frontier score</h3>
+          <p class="prose">{scoring.frontier.prose}</p>
+          <Math formula={scoring.frontier.formula} display />
+
+          <h3>Domain adaptation score</h3>
+          <p class="prose">{scoring.adapt.prose}</p>
+          <Math formula={scoring.adapt.formula} display />
+
+          <h3>Efficient track</h3>
+          <p class="prose">{scoring.efficient.prose}</p>
+          <Math formula={scoring.efficient.formula} display />
+
+          <h3>Benchmark</h3>
+          <p class="prose">
+            The <a href={site.mmbuUrl}>Massive Multimodal Biomedical Understanding (MMBU)</a> benchmark
+            serves as the evaluation framework. Tasks are posed in both open and closed VQA formats
+            across four task types. Models are asked to evaluate metadata at different levels of
+            perception and to return the final answer with a rationale in JSON. The evaluation prompt
+            requests a JSON-schema-formatted answer. Models are run at BF16 or FP16 precision (Rule
+            7). The public development set has open- and closed-ended VQA; the hidden evaluation set
+            is open-ended only.
+          </p>
+          <dl class="dl">
+            {
+              scoring.benchmark.tasks.map((task) => (
+                <div>
+                  <dt>{task.term}</dt>
+                  <dd>{task.definition}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </section>
+
+        <section id="faq" aria-labelledby="faq-title">
+          <h2 id="faq-title">FAQ</h2>
+          {
+            faq.map((item) => (
+              <Disclosure summary={item.q}>
+                <p>{item.a}</p>
+              </Disclosure>
+            ))
+          }
+        </section>
+      </div>
+    </div>
+  </main>
+</Base>

@@ -1,50 +1,43 @@
 # SPeC — Stanford Biomedical Perception Challenge
 
-Public website for **SPeC**, a research competition organized by [Stanford MARVL](https://marvl.stanford.edu/) under Dr. Serena Yeung-Levy, built on the [MMBU benchmark](https://arxiv.org/abs/2606.06696).
+Public site for **SPeC**, a research competition organized by [Stanford MARVL](https://marvl.stanford.edu/) under Dr. Serena Yeung-Levy, evaluated on the [MMBU benchmark](https://arxiv.org/abs/2606.06696).
 
-Live (GitHub Pages): **https://dcunhrya.github.io/SPeC/**
+The previous GitHub Pages URL (`https://dcunhrya.github.io/SPeC/`) remains up until Cloudflare is verified. After that cutover, those paths redirect here.
+
+Canonical host: **https://spec-challenge.pages.dev** (set once in `src/content/site.ts` as `site.baseUrl`).
 
 ## Local development
 
+Requires Node 22 (see `.nvmrc`). Cloudflare Pages should set `NODE_VERSION=22`.
+
 ```bash
-python3 -m http.server 8080
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:8080`.
+```bash
+npm run build
+npm run preview
+```
 
-## Where to edit content
+Content lives in `src/content/*.ts`. Pages map over those objects.
 
-Almost all challenge copy, dates, FAQ, and the registration endpoint live in **`js/content.js`**.
+## Deploy
 
-| What | Where |
-| --- | --- |
-| TBD dates, office-hours URL, form endpoint | `window.SPEC.tbd` |
-| 14 rules (verbatim) | `window.SPEC.rules` |
-| Tracks | `window.SPEC.tracks` |
-| FAQ | `window.SPEC.faq` |
-| Announcements | `window.SPEC.announcements` |
-| Sponsors / authors | `window.SPEC.sponsors`, `organizers` |
-| Scoring formulas | `scoring.html` (KaTeX) |
+Phase 1 is a static Astro build on Cloudflare Pages.
 
-Replace any `"TBD"` string or empty `formEndpoint` / `officeHoursUrl` when those are known. Do not invent dates in HTML.
+1. Create a Pages project named `spec-challenge`, connected to this repo.
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. Environment: `NODE_VERSION=22`
+5. Production branch: `main` (this work lands from `rebuild/astro` when Phase 1 is ready)
 
-## Registration backend
-
-The Register page is a real form (team, lead, members, tracks, conflicts, rule agreements). Until `SPEC.tbd.formEndpoint` is set, submissions are stored in the browser (`localStorage`) and offered as a JSON download. Set `formEndpoint` to a POST URL (Formspree, a serverless function, etc.) when you are ready to collect responses.
-
-## Structure
-
-- `index.html` — overview, motivation, Fig. 1, track cards
-- `tracks.html` — comparison table + three tracks
-- `scoring.html` — T, C, per-track formulas, MMBU tasks
-- `rules.html` — participation notes + Rules 1–14 (`#rule-1` … `#rule-14`)
-- `timeline.html` — TBD dates
-- `register.html` — team sign-up
-- `faq.html`
-- `sponsors.html` — sponsors (logos) vs industry collaborators (text only)
+`wrangler.toml` names the project. `.dev.vars.example` is a stub for Phase 2 secrets. There is no adapter, D1, or Functions in this phase.
 
 ## Notes
 
-- The internal rules PDF is gitignored and is not part of the public site.
-- Industry collaborator logos are omitted by design (Microsoft AI, Google DeepMind, OpenAI).
-- Fig. 1 is an accessible stacked-bar reconstruction of the source figure percentages (n = 500).
+- The hidden MMBU evaluation set never belongs in this repo or on Cloudflare.
+- `site.pdfUrl` is null until a public challenge document exists; the download control stays hidden.
+- Collaborators are text only. Do not add logos.
+- Sponsor logos sit in `public/logos/`. If a file is missing at runtime, the name is shown instead.
+- Hero tiles in `public/tiles/` are placeholders. Replace `tile-live.svg` first, then `tile-01.svg`–`tile-16.svg`, with licensed imagery.
