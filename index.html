@@ -3,196 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SPeC — The Stanford Biomedical Perception Challenge. Advancing AI for medical imaging and clinical perception.">
+  <meta name="description" content="SPeC — the Stanford Biomedical Perception Challenge. A research competition on biomedical visual perception, organized by Stanford MARVL on the MMBU benchmark.">
   <title>SPeC — Stanford Biomedical Perception Challenge</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-  <header class="site-header">
-    <nav class="nav container">
-      <a class="logo" href="#top">SPeC</a>
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#tracks">Tracks</a></li>
-        <li><a href="#timeline">Timeline</a></li>
-        <li><a href="#organizers">Organizers</a></li>
-        <li><a href="#contact" class="nav-cta">Get Involved</a></li>
-      </ul>
-    </nav>
-  </header>
+<body data-page="overview">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
 
-  <main id="top">
+  <main id="main">
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="container hero-content">
-        <p class="eyebrow">Stanford University</p>
-        <h1>The Stanford Biomedical Perception Challenge</h1>
+      <div class="container">
+        <p class="eyebrow">Stanford MARVL · MMBU benchmark</p>
+        <h1>Stanford Biomedical Perception Challenge</h1>
         <p class="hero-lead">
-          A community benchmark for advancing perception, reasoning, and clinical
-          understanding in biomedical AI — from medical imaging to multimodal patient data.
+          SPeC asks multimodal models to recognize, localize, and characterize visual features across biomedical images — not just to guess the downstream answer.
         </p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Register Interest</a>
-          <a href="#about" class="btn btn-secondary">Learn More</a>
+          <a class="btn btn-primary" href="register.html">Register Your Team</a>
+          <a class="btn btn-secondary" href="rules.html">Read the Rules</a>
         </div>
+        <p class="org-line">
+          Organized by <a href="https://marvl.stanford.edu/">Stanford MARVL</a> under Dr. Serena Yeung-Levy, built on the
+          <a href="https://arxiv.org/abs/2606.06696">MMBU benchmark (arXiv:2606.06696)</a>.
+        </p>
       </div>
     </section>
 
-    <section id="about" class="section">
-      <div class="container split">
-        <div>
-          <h2>Why SPeC?</h2>
+    <section id="motivation" class="section">
+      <div class="container">
+        <h2>Motivation</h2>
+        <div class="prose-width">
           <p>
-            Biomedical AI systems must perceive subtle clinical signals across imaging,
-            pathology, waveforms, and structured records. SPeC brings together researchers,
-            clinicians, and engineers to evaluate models on realistic, clinically motivated
-            tasks with transparent metrics and reproducible protocols.
+            Biomedical MLLMs need two capabilities: <strong>perception</strong> (recognizing and interpreting visual features)
+            and <strong>cognition</strong> (integrating those observations with prior knowledge to reason). Recent work has
+            emphasized reasoning; emerging evidence indicates that visual perception remains the primary bottleneck for
+            reliable downstream reasoning.
           </p>
           <p>
-            Our goal is to accelerate safe, generalizable perception models that can support
-            discovery and decision-making in real healthcare settings.
+            The scale of the data makes that bottleneck urgent. In healthcare alone, approximately
+            <strong>700 million medical imaging examinations</strong> are performed worldwide each year, alongside an estimated
+            <strong>6.4 billion glass slides</strong> generated annually in anatomic pathology. Electron microscopy can produce
+            petabytes of data; high-throughput and spatial imaging can generate billions of images. Much of this latent
+            knowledge is generated and stored, yet remains largely unexplored.
+          </p>
+          <p>
+            Models can often produce a correct downstream answer without understanding the image — shortcut learning from
+            language priors or spurious correlations. SPeC exists to measure and advance genuine visual perception, not
+            answer-only accuracy.
           </p>
         </div>
-        <ul class="stat-grid">
-          <li>
-            <span class="stat-value">Multimodal</span>
-            <span class="stat-label">Imaging, text, signals &amp; structured data</span>
-          </li>
-          <li>
-            <span class="stat-value">Open</span>
-            <span class="stat-label">Public leaderboard &amp; shared evaluation harness</span>
-          </li>
-          <li>
-            <span class="stat-value">Clinical</span>
-            <span class="stat-label">Tasks grounded in real biomedical workflows</span>
-          </li>
-        </ul>
+        <div data-bind="fig1"></div>
       </div>
     </section>
 
-    <section id="tracks" class="section section-alt">
+    <section id="what" class="section section-alt">
       <div class="container">
-        <h2>Challenge Tracks</h2>
-        <p class="section-intro">
-          SPeC is organized into complementary tracks designed to stress-test perception
-          at different scales — from pixel-level findings to patient-level reasoning.
+        <h2>What SPeC challenges you to do</h2>
+        <p class="prose-width">
+          SPeC challenges multimodal models to improve perceptual capability by recognizing, localizing, and characterizing
+          visual features across diverse biomedical images spanning imaging modalities, biological scales, anatomical regions,
+          and clinical contexts.
         </p>
-        <div class="card-grid">
-          <article class="card">
-            <h3>Medical Imaging Perception</h3>
-            <p>
-              Detect, segment, and classify findings across radiology and pathology
-              modalities with emphasis on rare conditions and domain shift.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Multimodal Clinical Reasoning</h3>
-            <p>
-              Integrate images, reports, labs, and demographics to answer clinically
-              relevant questions with calibrated uncertainty.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Temporal &amp; Physiologic Signals</h3>
-            <p>
-              Interpret ECG, waveform, and time-series data for event detection,
-              prognosis, and longitudinal monitoring tasks.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Robustness &amp; Fairness</h3>
-            <p>
-              Evaluate performance across sites, devices, and patient subgroups to
-              surface gaps before deployment.
-            </p>
-          </article>
+      </div>
+    </section>
+
+    <section id="tracks-preview" class="section">
+      <div class="container">
+        <h2>Tracks</h2>
+        <p class="page-lede">Three complementary objectives. A checkpoint may enter only one track; a team may use distinct checkpoints across tracks (<a href="rules.html#rule-2">Rule 2</a>).</p>
+        <div class="card-grid" data-bind="track-cards"></div>
+      </div>
+    </section>
+
+    <section id="announcements" class="section section-alt">
+      <div class="container">
+        <h2>Announcements</h2>
+        <div class="card-grid" data-bind="announcements"></div>
+      </div>
+    </section>
+
+    <section id="leaderboard" class="section">
+      <div class="container">
+        <h2>Leaderboard</h2>
+        <div class="placeholder-board">
+          <p>Leaderboard will go live once the hidden-set evaluation period closes. Hidden-set scores are released only after final submissions close (<a href="rules.html#rule-7">Rule 7</a>).</p>
         </div>
       </div>
     </section>
 
-    <section id="timeline" class="section">
+    <section id="sponsors-preview" class="section section-alt">
       <div class="container">
-        <h2>Timeline</h2>
-        <ol class="timeline">
-          <li>
-            <span class="timeline-date">Fall 2026</span>
-            <div>
-              <h3>Challenge announcement &amp; registration opens</h3>
-              <p>Release of task definitions, data access policies, and baseline models.</p>
-            </div>
-          </li>
-          <li>
-            <span class="timeline-date">Winter 2026</span>
-            <div>
-              <h3>Development phase</h3>
-              <p>Public training resources, leaderboard, and office hours for participants.</p>
-            </div>
-          </li>
-          <li>
-            <span class="timeline-date">Spring 2027</span>
-            <div>
-              <h3>Final evaluation &amp; workshop</h3>
-              <p>Held evaluation, results presentation, and community discussion at Stanford.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <section id="organizers" class="section section-alt">
-      <div class="container">
-        <h2>Organizers</h2>
-        <p class="section-intro">
-          SPeC is led by researchers at Stanford working at the intersection of machine
-          learning, biomedical informatics, and clinical medicine.
-        </p>
-        <div class="organizer-grid">
-          <div class="organizer-card">
-            <div class="avatar" aria-hidden="true">S</div>
-            <h3>Stanford AI &amp; Health</h3>
-            <p>Cross-disciplinary faculty, students, and clinical collaborators.</p>
-          </div>
-          <div class="organizer-card">
-            <div class="avatar" aria-hidden="true">B</div>
-            <h3>Biomedical Informatics</h3>
-            <p>Task design, dataset curation, and evaluation methodology.</p>
-          </div>
-          <div class="organizer-card">
-            <div class="avatar" aria-hidden="true">C</div>
-            <h3>Clinical Partners</h3>
-            <p>Domain experts ensuring tasks reflect real clinical needs.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section cta-section">
-      <div class="container cta-box">
-        <h2>Get Involved</h2>
-        <p>
-          Interested in participating, sponsoring, or contributing datasets?
-          Reach out to join the SPeC community.
-        </p>
-        <a href="mailto:spec-challenge@stanford.edu" class="btn btn-primary">spec-challenge@stanford.edu</a>
+        <h2>Sponsors</h2>
+        <p class="page-lede">Monetary support from Anthropic, GXL, AWS, Biohub, and Highlanders. Industry collaborators are listed in text only. <a href="sponsors.html">Full sponsors, collaborators, and organizers</a>.</p>
+        <div class="sponsor-grid" data-bind="sponsors"></div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; 2026 Stanford Biomedical Perception Challenge (SPeC)</p>
-      <p class="footer-note">Stanford University · Biomedical AI Research</p>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
+  <div id="site-footer"></div>
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/chart.js"></script>
 </body>
 </html>

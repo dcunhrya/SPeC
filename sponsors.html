@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SPeC sponsors, collaborators, and organizers. Stanford MARVL under Dr. Serena Yeung-Levy.">
+  <title>Sponsors — SPeC</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="sponsors">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <header class="page-header">
+      <div class="container">
+        <h1 class="page-title">Sponsors &amp; collaborators</h1>
+        <p class="page-lede">
+          SPeC distinguishes monetary sponsors from non-monetary collaborators. Sponsors are formally recognized in the technical report and may co-author. Collaborators contribute feedback on rules, metrics, tracks, and experimental design. Industry collaborator logos are omitted from public-facing materials.
+        </p>
+      </div>
+    </header>
+
+    <section class="section" style="padding-top:1.5rem">
+      <div class="container">
+        <h2>Sponsors</h2>
+        <p class="page-lede">Anthropic, GXL, AWS, Biohub, and Highlanders. Sponsors may opt in to attend office hours to receive direct feedback from participants about their use of sponsor-provided tools.</p>
+        <div class="sponsor-grid" data-bind="sponsors"></div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <h2>Collaborators</h2>
+        <p>Collaborators offer no monetary assistance and are strictly distinct from sponsors.</p>
+        <div data-bind="collaborators"></div>
+      </div>
+    </section>
+
+    <section id="organizers" class="section">
+      <div class="container">
+        <h2>Organizers</h2>
+        <div data-bind="organizers"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
