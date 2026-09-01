@@ -1,5 +1,8 @@
-# Cloudflare Pages project. Phase 1 is a static Astro build.
+# Static Astro output. Phase 1 has no Worker script.
 # D1, KV, R2, and Functions are Phase 2 — do not add them here yet.
 name = "spec-challenge"
 compatibility_date = "2026-08-31"
-pages_build_output_dir = "dist"
+
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"

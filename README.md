@@ -24,15 +24,15 @@ Content lives in `src/content/*.ts`. Pages map over those objects.
 
 ## Deploy
 
-Phase 1 is a static Astro build on Cloudflare Pages.
+Phase 1 is a static Astro build. Cloudflare uploads `dist` as Worker assets (`wrangler.toml`).
 
-1. Create a Pages project named `spec-challenge`, connected to this repo.
+1. Create a project named `spec-challenge`, connected to this repo.
 2. Build command: `npm run build`
-3. Output directory: `dist`
+3. Deploy command: leave the default (`npx wrangler deploy`)
 4. Environment: `NODE_VERSION=22`
-5. Production branch: `main` (this work lands from `rebuild/astro` when Phase 1 is ready)
+5. Production branch: `main`
 
-`wrangler.toml` names the project. `.dev.vars.example` is a stub for Phase 2 secrets. There is no adapter, D1, or Functions in this phase.
+`.dev.vars.example` is a stub for Phase 2 secrets. There is no adapter, D1, or Functions in this phase.
 
 ## Notes
 
