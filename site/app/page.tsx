@@ -43,7 +43,7 @@ export default function Home() {
           </div>
         </section>
         <section className="snapshot page-width" aria-label="Challenge snapshot">
-          {[['3', 'tracks'], ['4', 'task types'], ['2', 'eval passes'], ['6', 'context fields']].map(([number, label]) => (
+          {[['3', 'tracks'], ['3', 'months'], ['11', 'modalities'], ['6', 'context fields']].map(([number, label]) => (
             <div className="stat" key={label}><strong>{number}</strong><span>{label}</span></div>
           ))}
         </section>
