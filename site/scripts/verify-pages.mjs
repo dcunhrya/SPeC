@@ -26,7 +26,7 @@ for (const [, value] of html.matchAll(/(?:src|href|poster)="([^"]+)"/g)) {
 
 for (const path of [
   '/Challenge.pdf', '/favicon.svg', '/assets/mmbu-logo-updated.png',
-  '/assets/figure-2.jpg', '/assets/sponsors/gxl.svg', '/assets/sponsors/anthropic.png',
+  '/assets/figure-2.png', '/assets/sponsors/gxl.svg', '/assets/sponsors/anthropic.png',
   '/assets/sponsors/stanford-ai-lab.png', '/assets/sponsors/highlanders.png', '/assets/sponsors/aws.webp',
 ]) assert(paths.has(path), `The exported page is missing a required asset: ${path}`);
 

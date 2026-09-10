@@ -5,7 +5,8 @@ import { Header, Questions } from './site-interactions';
 
 export const dynamic = 'force-static';
 
-const registration = 'mailto:rdcunha@stanford.edu,lozanoe@stanford.edu?subject=MMBU%20Challenge%20registration';
+const applyUrl = 'https://luma.com/28k1tyd3';
+const contactOrganizers = 'mailto:rdcunha@stanford.edu,lozanoe@stanford.edu?subject=MMBU%20Challenge%20registration';
 const trackIcons = [Scan, Focus, Gauge];
 // Display the supplied artwork within its visible bounds, retaining the original files.
 const sponsorLogos = [
@@ -32,7 +33,8 @@ export default function Home() {
               <h1 id="hero-title">MMBU<br /><span>Challenge</span></h1>
               <p className="hero-description">Advance visual perception in biomedical multimodal models.</p>
               <div className="hero-actions">
-                <a className="button button-primary" href={registration}>Apply to participate<ArrowUpRight size={20} /></a>
+                <a className="button button-primary" href={applyUrl} target="_blank" rel="noopener noreferrer">Apply to participate<ArrowUpRight size={20} /></a>
+                <a className="button button-outline" href={contactOrganizers}>Contact Organizers<ArrowUpRight size={18} /></a>
                 <a className="button button-outline" href={assetPath('/Challenge.pdf')}>Challenge brief<ArrowUpRight size={18} /></a>
               </div>
             </div>
@@ -56,8 +58,8 @@ export default function Home() {
             <p className="lead">{content.about.paragraphs[0]}</p>
             <p>{content.about.paragraphs[1]}</p>
           </div>
-          <a className="task-figure" href={assetPath('/assets/figure-2.jpg')} target="_blank" rel="noopener noreferrer" aria-label="Open the full-size example MMBU tasks figure">
-            <img src={assetPath('/assets/figure-2.jpg')} alt="Example MMBU tasks: classification, detection, and segmentation" width="1600" height="1600" loading="lazy" />
+          <a className="task-figure" href={assetPath('/assets/figure-2.png')} target="_blank" rel="noopener noreferrer" aria-label="Open the full-size example MMBU tasks figure">
+            <img src={assetPath('/assets/figure-2.png')} alt="Example MMBU open-ended VQA tasks" width="3416" height="4041" loading="lazy" />
             <span className="figure-expand" aria-hidden="true"><MoveUpRight size={20} /></span>
           </a>
         </section>
