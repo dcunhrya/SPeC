@@ -1,8 +1,8 @@
-# Static Astro output. Phase 1 has no Worker script.
-# D1, KV, R2, and Functions are Phase 2 — do not add them here yet.
+# Static export of the MMBU site. Keeps the existing Worker name so
+# https://spec-challenge.rdcunha.workers.dev stays valid for the QR code.
 name = "spec-challenge"
 compatibility_date = "2026-08-31"
 
 [assets]
-directory = "./dist"
+directory = "./site/dist/client"
 not_found_handling = "404-page"

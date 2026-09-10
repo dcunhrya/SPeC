@@ -1,43 +1,71 @@
-# SPeC — Stanford Biomedical Perception Challenge
+# MMBU Challenge
 
-Public site for **SPeC**, a research competition organized by [Stanford MARVL](https://marvl.stanford.edu/) under Dr. Serena Yeung-Levy, evaluated on the [MMBU benchmark](https://arxiv.org/abs/2606.06696).
+Exact copy of the [MMBU Challenge site](https://akiranishii.github.io/mmbu-challenge/). The website lives in `site/`.
 
-The previous GitHub Pages URL (`https://dcunhrya.github.io/SPeC/`) remains up until Cloudflare is verified. After that cutover, those paths redirect here.
+QR codes stay valid on both existing hosts:
 
-Canonical host: **https://spec-challenge.rdcunha.workers.dev** (set once in `src/content/site.ts` as `site.baseUrl`). A custom domain can be attached later in the Cloudflare dashboard.
+- Cloudflare: **https://spec-challenge.rdcunha.workers.dev** (root URL, no path prefix)
+- GitHub Pages: **https://dcunhrya.github.io/SPeC/**
 
-## Local development
+## Run locally
 
-Requires Node 22 (see `.nvmrc`). Cloudflare Pages should set `NODE_VERSION=22`.
-
-```bash
-npm install
-npm run dev
+```sh
+cd site
+npm ci
+npm run dev -- --hostname 127.0.0.1 --port 3005
 ```
 
-```bash
+Open the local URL printed in the terminal (normally http://127.0.0.1:3005). Keep the terminal running while using the website. If the port is occupied, the development server chooses the next available port.
+
+## Build
+
+```sh
+cd site
 npm run build
-npm run preview
 ```
 
-Content lives in `src/content/*.ts`. Pages map over those objects.
+## GitHub Pages
 
-## Deploy
+The published tree is `docs/` on `main`, with base path `/SPeC`, so **https://dcunhrya.github.io/SPeC/** stays valid. GitHub Pages must use branch `main` and folder `/docs`. `docs/.nojekyll` is required so GitHub does not ignore the `_next` assets.
 
-Phase 1 is a static Astro build. Cloudflare uploads `dist` as Worker assets (`wrangler.toml`).
+Rebuild that folder after site changes:
 
-1. Create a project named `spec-challenge`, connected to this repo.
-2. Build command: `npm run build`
-3. Deploy command: leave the default (`npx wrangler deploy`)
-4. Environment: `NODE_VERSION=22`
-5. Production branch: `main`
+```sh
+npm run build:docs
+```
 
-`.dev.vars.example` is a stub for Phase 2 secrets. There is no adapter, D1, or Functions in this phase.
+To verify the export from `site/`:
 
-## Notes
+```sh
+NEXT_PUBLIC_SITE_URL=https://dcunhrya.github.io/SPeC \
+NEXT_PUBLIC_BASE_PATH=/SPeC npm run build:pages
 
-- The hidden MMBU evaluation set never belongs in this repo or on Cloudflare.
-- `site.pdfUrl` is null until a public challenge document exists; the download control stays hidden.
-- Collaborators are text only. Do not add logos.
-- Sponsor logos sit in `public/logos/`. If a file is missing at runtime, the name is shown instead.
-- Hero tiles in `public/tiles/` are placeholders. Replace `tile-live.svg` first, then `tile-01.svg`–`tile-16.svg`, with licensed imagery.
+NEXT_PUBLIC_SITE_URL=https://dcunhrya.github.io/SPeC \
+NEXT_PUBLIC_BASE_PATH=/SPeC node scripts/verify-pages.mjs
+```
+
+Local development continues to use URLs rooted at `/`.
+
+## Cloudflare
+
+The Worker name stays `spec-challenge`, so **https://spec-challenge.rdcunha.workers.dev** does not change. Cloudflare builds with an empty base path.
+
+```sh
+npm run build
+npx wrangler deploy
+```
+
+Requires Node 22 (`NODE_VERSION=22`). Production branch: `main`.
+
+## Content and assets
+
+- `site/lib/content.json`: original overview, tracks, sponsors, and FAQ wording.
+- `site/lib/original-source.html`: snapshot of the supplied MMBU website, retrieved September 8, 2026.
+- `site/public/Challenge.pdf`: original challenge brief.
+- `site/public/assets/figure-2.jpg`: original task figure.
+- `site/public/assets/mmbu-logo-updated.png`: supplied `logo_updated.png`, unchanged.
+- `site/public/assets/sponsors/`: all five supplied sponsor logos, unchanged. Their display frames omit empty image margins with CSS.
+
+The hero displays the 2380 × 2380 `logo_updated.png` across the entire banner behind the title and application buttons. CSS `object-fit: cover` preserves the image's proportions while cropping its edges to fill the banner. A gradual green overlay fades the artwork behind the text and along the bottom, with a stronger overlay on mobile for readability.
+
+The original application email, paper, MARVL, contact, and brief links are preserved.

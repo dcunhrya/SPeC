@@ -1,9 +1,20 @@
 .DS_Store
-*.swp
-*.swo
-.env
-.env.*
+**/node_modules/
+**/dist/
+**/.vite/
+**/.wrangler/
+**/.next/
+**/.vinext/
+**/.astro/
+**/out/
+*.tsbuildinfo
+*.log
+.env*
+**/.env*
 SPeC_MMBU.pdf
-node_modules/
-dist/
-.astro/
+
+# Original input assets are retained locally; the site/public copies are deployed.
+/logo.png
+/logo_updated.png
+/logo/
+/*.mp4
