@@ -40,9 +40,7 @@
     "names": [
       "GXL",
       "Anthropic",
-      "Stanford AI Lab",
-      "Highlanders",
-      "AWS"
+      "Highlanders"
     ]
   },
   "faq": {
@@ -59,7 +57,7 @@
       },
       {
         "question": "How is scoring done?",
-        "answer": "Two independent passes on the hidden set. Pass 1 is the task answer (T). Pass 2 is biomedical context (C): modality, submodality, specimen, body part, stain, and domain. The shared base score is 0.8T + 0.2C. Each track then applies its own rule. Ties break on T. Sonnet-5 is the judge."
+        "answer": "Two independent passes on the hidden set. Pass 1 is the task answer (T). Pass 2 is biomedical context (C): modality, submodality, specimen, body part, stain, and domain. The shared base score is 0.8T + 0.2C. Each track then applies its own rule. Each track has a modified scoring function from this base scoring function explained in the <a href=\"/Challenge.pdf\">Challenge Brief</a>. Ties break on T. Sonnet-5 is the judge."
       },
       {
         "question": "What are the main rules?",

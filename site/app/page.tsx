@@ -12,9 +12,7 @@ const trackIcons = [Scan, Focus, Gauge];
 const sponsorLogos = [
   { src: 'gxl.svg', width: 644, height: 285, bounds: [60, 60, 524, 165] },
   { src: 'anthropic.png', width: 2000, height: 2000, bounds: [0, 880, 2000, 240] },
-  { src: 'stanford-ai-lab.png', width: 1998, height: 787, bounds: [0, 0, 1998, 787] },
   { src: 'highlanders.png', width: 2103, height: 748, bounds: [180, 278, 1770, 175] },
-  { src: 'aws.webp', width: 1280, height: 767, bounds: [0, 0, 1280, 767] },
 ];
 
 export default function Home() {
